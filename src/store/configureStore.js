@@ -1,13 +1,16 @@
 import { createStore, applyMiddleware } from 'redux';
 import { createLogger } from 'redux-logger';
 import { createEpicMiddleware } from 'redux-observable';
+import jsonRpcWs from 'json-rpc-ws';
 
 import epic from './epics';
 import reducer from './reducers';
 import initialState from './initialState';
 
 const epicMiddleware = createEpicMiddleware({ 
-  dependencies: {}
+  dependencies: {
+    rpc: jsonRpcWs.createServer()
+  }
 });
 
 export const configureStore = () => {
