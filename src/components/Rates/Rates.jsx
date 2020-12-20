@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { useRates } from './useRates';
 import { Header } from './Header';
@@ -8,12 +8,13 @@ import Styles from './Rates.module.scss';
 export const Rates = ({
   top
 }) => {
-  const { data } = useRates(top);
+  const [ sort, setSort ] = useState({});
+  const { data } = useRates(top, sort.property, sort.desc);
 
   return (
     <div className={Styles.Rates}>
       <table>
-        <Header />
+        <Header onSortChange={ setSort } />
         <tbody>
         { data.map(({ ask, bid, high, last, low, baseCurrency, feeCurrency, symbol }) => (
           <Row

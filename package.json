@@ -62,7 +62,6 @@
     "reselect": "^4.0.0",
     "resolve": "1.18.1",
     "resolve-url-loader": "^3.1.2",
-    "rpc-websockets": "^7.4.8",
     "rxjs": "^6.6.3",
     "sass-loader": "8.0.2",
     "semver": "7.3.2",

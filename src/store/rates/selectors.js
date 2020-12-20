@@ -16,19 +16,14 @@ export const selectSymbols = (symbols) =>
   );
 
 const defaultSelectTickersTop = -1;
-export const selectTickers = (top = defaultSelectTickersTop) =>
+const defaultSelectTickersProperty = 'last';
+export const selectTickers = (top = defaultSelectTickersTop, property = defaultSelectTickersProperty) =>
   createSelector(
     namespaceSelector,
     ({ tickers }) => {
-      const tickersToShow = Object.values(tickers).sort(({ last: lastA }, { last: lastB }) => {
-        if (lastA === lastB) {
-          return 0;
-        }
-        if (+lastA < +lastB) {
-          return 1;
-        }
-        return -1;
-      });
+      const tickersToShow = Object
+        .values(tickers)
+        .sort((a, b) => +a[property] === +b[property] ? 0 : (+a[property] > +b[property] ? -1 : 1));
 
       if (top === defaultSelectTickersTop) {
         return tickersToShow;

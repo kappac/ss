@@ -1,0 +1,29 @@
+@mixin sort {
+  &:after {
+    margin-left: 8px;
+  }
+}
+
+.SortNone {
+  @include sort;
+
+  &:after {
+    content: '\2195';
+  }
+}
+
+.SortAsc {
+  @include sort;
+
+  &:after {
+    content: '\2191';
+  }
+}
+
+.SortDesc {
+  @include sort;
+
+  &:after {
+    content: '\2193';
+  }
+}
