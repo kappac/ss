@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import { useRates } from './useRates';
 import { Header } from './Header';
@@ -16,9 +16,9 @@ export const Rates = ({
       <table>
         <Header onSortChange={ setSort } />
         <tbody>
-        { data.map(({ ask, bid, high, last, low, baseCurrency, feeCurrency, symbol }) => (
+        { data.map(({ ask, bid, high, last, low, baseCurrency, feeCurrency, symbol }, idx) => (
           <Row
-            key={symbol}
+            key={symbol || idx}
             ticker={`${baseCurrency} / ${feeCurrency}`}
             ask={ask}
             bid={bid}

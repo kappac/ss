@@ -7,7 +7,10 @@ export const updateSymbols = (state, { payload: symbols = [] }) => ({
     symbols: symbols.reduce(
       (res, symbol) => ({
         ...res,
-        [symbol.id]: symbol
+        [symbol.id]: {
+          ...state[Namespace].symbols[symbol.id],
+          ...symbol
+        }
       }),
       { ...state[Namespace].symbols }
     )

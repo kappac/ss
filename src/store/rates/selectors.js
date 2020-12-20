@@ -20,9 +20,9 @@ const defaultSelectTickersProperty = 'last';
 export const selectTickers = (top = defaultSelectTickersTop, property = defaultSelectTickersProperty) =>
   createSelector(
     namespaceSelector,
-    ({ tickers }) => {
+    ({ symbols }) => {
       const tickersToShow = Object
-        .values(tickers)
+        .values(symbols)
         .sort((a, b) => +a[property] === +b[property] ? 0 : (+a[property] > +b[property] ? -1 : 1));
 
       if (top === defaultSelectTickersTop) {

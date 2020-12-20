@@ -4,10 +4,9 @@ import cx from 'classnames';
 import { useCell } from './useCell';
 
 export const Cell = ({
-  sorting,
   value
 }) => {
-  const classes = useCell(value, sorting);
+  const classes = useCell(value);
 
-  return <td className={cx(sorting && classes)}>{ value }</td>;
+  return <td className={cx(classes)}>{ value }</td>;
 };
