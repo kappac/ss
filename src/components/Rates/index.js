@@ -1,1 +1,1 @@
-export { Rates } from './Rates.js';
+export * from './Rates.jsx';

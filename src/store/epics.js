@@ -1,3 +1,7 @@
 import { combineEpics } from 'redux-observable';
 
-export default combineEpics();
+import { Epics as RatesEpics } from './rates';
+
+export default combineEpics(
+  ...RatesEpics
+);
