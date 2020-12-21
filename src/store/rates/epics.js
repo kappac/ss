@@ -15,8 +15,10 @@ const connectUrl = 'wss://api.exchange.bitcoin.com/api/2/ws';
 const connectEpic = (action$, state$, { client }) =>
   action$.pipe(
     ofType(ActionTypes.Connect),
-    switchMap(() => fromEventPattern(
-      (handler) => client.connect(connectUrl, handler)
+    switchMap(() => new Promise(
+      (resolve) => {
+        client.connect(connectUrl, resolve);
+      }
     )),
     mapTo(GetSymbols())
   );
@@ -24,10 +26,12 @@ const connectEpic = (action$, state$, { client }) =>
 const getSymbolsEpic = (action$, state$, { client }) =>
   action$.pipe(
     ofType(ActionTypes.GetSymbols),
-    switchMap(() => fromEventPattern(
-      (handler) => client.send('getSymbols', {}, handler)
+    switchMap(() => new Promise(
+      (resolve) => {
+        client.send('getSymbols', {}, (_, reply = []) => resolve(reply));
+      }
     )),
-    map(([, res = []]) => UpdateSymbols(res))
+    map((reply) => UpdateSymbols(reply))
   );
 
 const updateSymbolsEpic = (action$) =>
@@ -51,17 +55,8 @@ const subscribeTickersEpic = (action$, state$, { client }) =>
       );
     }),
     map(([ ticker ]) => ticker),
-    bufferTime(300),
-    map((tickers) => {
-      const ts = tickers.reduce(
-        (acc, ticker) => ({
-          ...acc,
-          [ticker.symbol]: ticker
-        }),
-        {}
-      );
-      return UpdateTickers(Object.values(ts));
-    })
+    bufferTime(500),
+    map((tickers) => UpdateTickers(tickers))
   );
 
 const epics = [

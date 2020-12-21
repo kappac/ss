@@ -4,8 +4,6 @@ import { createLogger } from 'redux-logger';
 import { createEpicMiddleware } from 'redux-observable';
 import JsonRpcWs from 'json-rpc-ws/browser';
 
-// import { client } from '@utils';
-
 import epic from './epics';
 import reducer from './reducers';
 import initialState from './initialState';
